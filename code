@@ -1,0 +1,100 @@
+code
+project Files
+LibraryQuerySystem/
+│
+├── queries.txt
+└── library_system.py
+
+
+                      Sample queries.txt
+Python programming basics
+PYTHON data science
+Intro to java
+advanced PYTHON
+
+
+
+# Library Management - User Query Log System
+
+FILE_NAME = "queries.txt"
+
+# Function to display all queries
+def view_queries():
+    print("\n--- User Search Queries ---")
+    with open(FILE_NAME, "r") as file:
+        queries = file.readlines()
+
+    for i, q in enumerate(queries, start=1):
+        print(f"{i}. {q.strip()}")
+
+
+# Function to add a new query
+def add_query():
+    query = input("Enter new search query: ")
+
+    with open(FILE_NAME, "a") as file:
+        file.write("\n" + query)
+
+    print("✅ Query added successfully!")
+
+
+# Function to count python related queries
+def count_python_queries():
+    count = 0
+
+    with open(FILE_NAME, "r") as file:
+        queries = file.readlines()
+
+    for q in queries:
+        if "python" in q.lower():
+            count += 1
+
+    print("📊 Total queries containing 'python':", count)
+
+
+# Function to search any keyword
+def search_keyword():
+    keyword = input("Enter keyword to search: ").lower()
+
+    print("\n🔍 Search Results:")
+    found = False
+
+    with open(FILE_NAME, "r") as file:
+        for q in file:
+            if keyword in q.lower():
+                print("-", q.strip())
+                found = True
+
+    if not found:
+        print("❌ No matching queries found.")
+
+
+# Main Menu
+def main_menu():
+    while True:
+        print("\n===== Library Query Management System =====")
+        print("1. View all queries")
+        print("2. Add new query")
+        print("3. Count 'python' queries")
+        print("4. Search a keyword")
+        print("5. Exit")
+
+        choice = input("Enter your choice (1-5): ")
+
+        if choice == "1":
+            view_queries()
+        elif choice == "2":
+            add_query()
+        elif choice == "3":
+            count_python_queries()
+        elif choice == "4":
+            search_keyword()
+        elif choice == "5":
+            print("👋 Exiting system. Thank you!")
+            break
+        else:
+            print("❌ Invalid choice! Try again.")
+
+
+# Run program
+main_menu()
